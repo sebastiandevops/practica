@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.management.InstanceNotFoundException;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +29,7 @@ import com.sebastian.practica.repo.ClientRepository;
  *
  */
 @RestController
+@Validated
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/v1")
 public class ClienteController {
@@ -121,15 +121,14 @@ public class ClienteController {
      * @return the response entity
      * @throws InstanceNotFoundException
      */
-    @PutMapping("/clients/{idNumber}")
+    @PutMapping("/update")
     public ResponseEntity<Cliente> updateCliente(
-            @PathVariable(value = "idNumber") Long clientId,
-            @Valid @RequestBody Cliente clienteDetails)
+            @Validated @RequestBody Cliente clienteDetails)
                     throws InstanceNotFoundException {
         Cliente cliente = repo
-                .findById(clientId)
+                .findById(clienteDetails.getId())
                 .orElseThrow(() -> new InstanceNotFoundException(
-                        "Client not found on :: " + clientId));;
+                        "Client not found on :: " + clienteDetails.getId()));;
                         cliente.setIdType(clienteDetails.getIdType());
                         cliente.setLastName(clienteDetails.getLastName());
                         cliente.setFirstName(clienteDetails.getFirstName());

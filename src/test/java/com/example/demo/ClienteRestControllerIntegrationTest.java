@@ -42,9 +42,6 @@ public class ClienteRestControllerIntegrationTest {
     private ClienteController ctr;
 
     @Autowired
-    private ObjectMapper om;
-
-    @Autowired
     private WebApplicationContext webApplicationContext;
 
     /**

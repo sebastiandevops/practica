@@ -9,12 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
@@ -59,32 +60,39 @@ public class Cliente implements Serializable {
     }
 
     @Id
+    @Valid
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "first_name", nullable = false)
-    @NotNull
-    @Size(min=2, message="First name should have atleast 2 characters")
+    @NotNull(message = "First name is a required field")
+    @Size(min=2, message="First name should have at least 2 characters")
     private String firstName;
 
     @Column(name = "last_name", nullable = false)
+    @NotNull(message = "Last name is a required field")
+    @Size(min=2, message="Last name should have at least 2 characters")
     private String lastName;
 
     @Column(name = "id_type", nullable = false)
+    @Size(min=2, max=2)
     private String idType;
 
     @NaturalId
     @Column(name = "id_number", nullable = false, unique = true)
     @NotNull
-    @Size(min=6, message="Id number should have atleast 6 characters")
+    @Range(min = 99999, max = 1999999999,
+    message = "The identification number must contain between 6 and 10 digits")
     private long idNumber;
 
     @Column(name = "age", nullable = false)
-    @Min(value = 18, message = "Age should not be less than 18")
-    @Max(value = 99, message = "Age should not be greater than 99")
+    @Min(18)
+    @Range(min = 18, max = 99, message = "Age should not be less than 18 and greater than 99")
     private int age;
 
     @Column(name = "place_of_birth", nullable = false)
+    @NotNull
+    @Size(min=2, message="Place of birth should have at least 2 characters")
     private String placeOfBirth;
 
     /**
