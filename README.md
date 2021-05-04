@@ -2,4 +2,4 @@
 
 API’s Restful con las operaciones CRUD de una tabla de base de datos llamada CLIENTE.
 
-![pragma image]("https://lh6.googleusercontent.com/r3HDI0IqBxN0u_LM43j6skNrvuMY9PySJxc6lv5f3Wnek1vxDE0-_SZzxnNzwW1rGK1gekxwQ9pzxlTC_LI3U6xbqTGvo_aRXad54vWCC1ApgErt_uucXUNoUtyWOYe8hW6qh7U")
+![pragma image]("https://user-images.githubusercontent.com/63010971/116953362-aa562480-ac52-11eb-8712-cd8959f7408e.png")
