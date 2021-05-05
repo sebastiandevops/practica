@@ -21,6 +21,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sebastian.practica.controller.ClienteController;
 import com.sebastian.practica.model.Cliente;
 
+/**
+ * Data validation test
+ * @author Sebastián
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
@@ -46,6 +51,10 @@ public class ClientsValidationTest {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .build();
     }
+    /**
+     * Invalid firstName test
+     * @throws Exception
+     */
     @Test
     public void whenPutRequestHasInvalidFirstName_thenResponse() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
@@ -57,6 +66,10 @@ public class ClientsValidationTest {
                 .andExpect(status().isBadRequest()));
     }
 
+    /**
+     * Invalid lastName test
+     * @throws Exception
+     */
     @Test
     public void whenPutRequestHasInvalidLastName_thenResponse() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
@@ -68,6 +81,10 @@ public class ClientsValidationTest {
                 .andExpect(status().isBadRequest()));
     }
 
+    /**
+     * Invalid age test
+     * @throws Exception
+     */
     @Test
     public void whenPutRequestHasInvalidAge_thenResponse() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
@@ -79,10 +96,29 @@ public class ClientsValidationTest {
                 .andExpect(status().isBadRequest()));
     }
 
+    /**
+     * Invalid idNumber test
+     * @throws Exception
+     */
     @Test
     public void whenPutRequestHasInvalidIdNumber_thenResponse() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         Cliente cliente = new Cliente(1, "Pepito", "Pérez", "CC", 1053,
+                33, "Manizales");
+        System.out.println(this.mvc.perform(put("http://localhost:9898/api/v1/update")
+                .contentType("application/json")
+                .content(mapper.writeValueAsString(cliente)))
+                .andExpect(status().isBadRequest()));
+    }
+
+    /**
+     * Null data test
+     * @throws Exception
+     */
+    @Test
+    public void whenPutRequestHasNullData_thenResponse() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Cliente cliente = new Cliente(1, null, "Pérez", "CC", 1053,
                 33, "Manizales");
         System.out.println(this.mvc.perform(put("http://localhost:9898/api/v1/update")
                 .contentType("application/json")
